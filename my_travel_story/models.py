@@ -1,7 +1,15 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
+
+class Picture(models.Model):
+    photo = models.ImageField(upload_to='place_images')
+    title = models.CharField(max_length=128, blank=True)
+    description = models.TextField(blank=True)
+    views = models.IntegerField(default=0)
+    date = models.DateField()
 
 
 class Place(models.Model):
@@ -9,7 +17,10 @@ class Place(models.Model):
     #koordynaty dodamy jak dowiemy sie w jaki sposob oblusugje sie google maps
     #description = models.CharField(required=False) zalezy jak dalej to przemyslimy
     description = models.TextField(blank=True)
-    picture = models.ImageField(upload_to='place_images', blank=True)
+    picture = models.ForeignKey(Picture, blank=True)
+    #troche slabe zeby intem okreslac to na ile sie podobalo, od 0 do 5
+    rate = models.IntegerField()
+
 
 
 class UserProfile(models.Model):
