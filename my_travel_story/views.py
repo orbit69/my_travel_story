@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
+
 from my_travel_story.forms import UserForm, UserProfileForm
 
+def index(request):
+    return render(request, 'index.html')
 
 def register(request):
     registered = False
@@ -35,8 +41,28 @@ def register(request):
         profile_form = UserProfileForm()
 
     return render(request,
-                  'mytravelstory.html',
+                  'register.html',
                   {'user_form' : user_form,
                    'profile_form' : profile_form,
                    'registered' : registered})
 
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")
+        else:
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        return render(request, 'login.html', {})
