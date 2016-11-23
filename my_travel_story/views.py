@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
@@ -57,7 +58,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('restricted'))
             else:
                 return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")
         else:
@@ -66,3 +67,14 @@ def user_login(request):
 
     else:
         return render(request, 'login.html', {})
+
+
+@login_required
+def restricted(request):
+    return render(request, 'restricted.html', {})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
