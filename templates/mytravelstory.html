@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>
+            MyTravelStory - Registration
+        </title>
+    </head>
+    <body>
+        {% if registered %}
+            Thank You for registration!
+        {% else %}
+            Register here:
+        <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <input type="submit" name="submit" value="Register"/>
+        </form>
+        {% endif %}
+    </body>
+</html>
