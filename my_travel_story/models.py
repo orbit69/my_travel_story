@@ -35,3 +35,5 @@ class UserProfile(models.Model):
     def __unicode__(self):
         #starsze wersje obsluguja unicode zamiast str
         return self.user.username
+
+    #tmp
