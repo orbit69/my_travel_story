@@ -8,17 +8,17 @@ class Picture(models.Model):
     title = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
     views = models.IntegerField(default=0)
-    date = models.DateField()
+    date = models.DateField(blank=True)
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, default="nazwa")
     #koordynaty dodamy jak dowiemy sie w jaki sposob oblusugje sie google maps
     #description = models.CharField(required=False) zalezy jak dalej to przemyslimy
     description = models.TextField(blank=True)
     picture = models.ForeignKey(Picture, blank=True)
     #troche slabe zeby intem okreslac to na ile sie podobalo, od 0 do 5
-    rate = models.IntegerField()
+    rate = models.IntegerField(blank=True)
 
 
 
@@ -27,7 +27,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     #opcjonalne zdjecie profilowe
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    place = models.ForeignKey(Place)
+    place = models.ForeignKey(Place, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
