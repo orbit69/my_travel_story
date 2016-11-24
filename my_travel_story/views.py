@@ -1,27 +1,17 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import *
 
 
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    user_login = request.session['login']
-
-    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login).id).picture.name.split('/')[-1]
-    picture_path = picture_path.encode('ascii', 'ignore')
-
-    queries = {
-        'request_content': user_login,
-        'picture' : picture_path,
-    }
-
-    return render(request, 'index.html', queries)
+    request_content = request.session['login']
+    return render(request, 'index.html',{'request_content': request_content})
 
 def register(request):
+
     registered = False
 
     if request.method == 'POST':
@@ -61,6 +51,7 @@ def register(request):
 
 
 def user_login(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -80,9 +71,3 @@ def user_login(request):
 
     else:
         return render(request, 'login.html', {})
-
-def user_logout(request):
-    del request.session['login']
-    logout(request)
-    return HttpResponseRedirect(reverse('login'))
-
