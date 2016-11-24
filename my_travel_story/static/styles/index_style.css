@@ -1,0 +1,22 @@
+html{
+    height: 100%;
+}
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+#menu-bar {
+    height:10%;
+    background-color: beige;
+}
+#side-bar {
+    height: 90%;
+    width: 25%;
+    background-color: bisque;
+    float:left;
+}
+#map-canvas {
+    height: 90%;
+    width: 75%;
+}

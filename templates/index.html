@@ -1,15 +1,20 @@
-{% extends 'base.html' %}
-{% block title_block %}
-    Index
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
 
-{% block body_block %}
-
-    <div>
-        <ul>
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'register' %}">Register</a> </li>
-        </ul>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+</head>
+<body>
+    <div id="menu-bar">
+        {{ request_content }}
     </div>
-
-{% endblock %}
+    <div id="side-bar"></div>
+    <div id="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?">
+    </script>
+    <script src="{% static 'scripts/index_script.js' %}"></script>
+</body>
+</html>
