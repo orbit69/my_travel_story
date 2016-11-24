@@ -3,12 +3,15 @@ from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
+
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    return render(request, 'index.html')
+    request_content = request.session['login']
+    return render(request, 'index.html',{'request_content': request_content})
 
 def register(request):
+
     registered = False
 
     if request.method == 'POST':
@@ -48,6 +51,7 @@ def register(request):
 
 
 def user_login(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -57,6 +61,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                request.session['login'] = username
                 return HttpResponseRedirect(reverse('index'))
             else:
                 return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")

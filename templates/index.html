@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>index</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
 </head>
 <body>
-    tutaj bedzie mapa
+    <div id="menu-bar">
+        {{ request_content }}
+    </div>
+    <div id="side-bar"></div>
+    <div id="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?">
+    </script>
+    <script src="{% static 'scripts/index_script.js' %}"></script>
 </body>
 </html>
