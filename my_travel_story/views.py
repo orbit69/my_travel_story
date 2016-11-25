@@ -58,7 +58,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('restricted'))
+                return HttpResponseRedirect(reverse('index'))
             else:
                 return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")
         else:
