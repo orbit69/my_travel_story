@@ -1,16 +1,13 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
 
-
-{% block title_block %}
-    Index
-{% endblock %}
-
-{% block head_block %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
-{% endblock %}
-
-{% block body_block %}
+</head>
+<body>
     <div id="menu-bar">
         {% with 'profile_images/'|add:picture as image_static %}
         <img id="avatar" src="{% static image_static %}" height="100%" alt="avatar or default"/>
@@ -26,5 +23,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
     <script src="{% static 'scripts/index_script.js' %}"></script>
-{% endblock %}
-
+</body>
+</html>
