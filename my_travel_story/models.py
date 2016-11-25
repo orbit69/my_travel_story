@@ -26,7 +26,8 @@ class UserProfile(models.Model):
     #odsylam do https://docs.djangoproject.com/en/1.10/ref/contrib/auth/
     user = models.OneToOneField(User)
     #opcjonalne zdjecie profilowe
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='my_travel_story/static/profile_images', blank=True,
+                                default='my_travel_story/static/profile_images/no_image.png')
     place = models.ForeignKey(Place, blank=True, null=True)
 
     def __str__(self):
