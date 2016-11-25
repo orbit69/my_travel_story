@@ -69,12 +69,4 @@ def user_login(request):
         return render(request, 'login.html', {})
 
 
-@login_required
-def restricted(request):
-    return render(request, 'restricted.html', {})
 
-
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('index'))
