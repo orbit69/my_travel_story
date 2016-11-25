@@ -85,3 +85,4 @@ def user_logout(request):
     del request.session['login']
     logout(request)
     return HttpResponseRedirect(reverse('login'))
+
