@@ -8,7 +8,10 @@ from .models import *
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    user_login = request.session['login']
+    try:
+        user_login = request.session['login']
+    except KeyError, e:
+        return HttpResponseRedirect(reverse('login'))
 
     picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login).id).picture.name.split('/')[-1]
     picture_path = picture_path.encode('ascii', 'ignore')
@@ -82,7 +85,8 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
+
 def logout(request):
     del request.session['login']
 
-    return render(request,'login.html')
+    return HttpResponseRedirect(reverse('login'))
