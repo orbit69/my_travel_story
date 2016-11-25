@@ -19,7 +19,9 @@
         {{ request_content }}
 
         <input id="search-text" type="text" placeholder="Enter a location">
-        <input id="user-logout" type="button" value="LOGOUT" onclick="logout()">
+{#        <input id="user-logout" type="button" value="LOGOUT" onclick="{% url 'logout' %}">#}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+
     </div>
     <div id="side-bar"></div>
     <div id="map-canvas"></div>

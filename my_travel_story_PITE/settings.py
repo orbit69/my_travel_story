@@ -16,9 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#przekierowanie do logowania
-LOGIN_URL = '/login/'
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'my_travel_story',
+    'my_travel_story'
 ]
 
 MIDDLEWARE = [
@@ -86,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pite',
-        'PASSWORD': 'Sz011235813S',
+        'PASSWORD': 'haslo123',
         'USER': 'postgres',
         'PORT': '5432',
         'HOST': 'localhost',
