@@ -81,8 +81,10 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
+
+@login_required
 def user_logout(request):
-    del request.session['login']
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
+#
