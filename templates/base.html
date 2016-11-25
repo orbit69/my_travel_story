@@ -7,17 +7,12 @@
                 base.html
             {% endblock %}
         </title>
+        {% block head_block %}
+        {% endblock %}
     </head>
+    <body>
     {% block body_block %}
 
     {% endblock %}
-    <body>
-        <div>
-            <ul>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'index' %}">Index</a></li>
-                <li><a href="{% url 'register' %}">Register</a> </li>
-            </ul>
-        </div>
     </body>
 </html>

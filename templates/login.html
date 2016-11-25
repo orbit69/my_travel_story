@@ -13,4 +13,11 @@
         <br />
         <input type="submit" value="submit" />
     </form>
+     <div>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a> </li>
+            <li><a href="{% url 'index' %}">Index</a></li>
+        </ul>
+    </div>
 {% endblock %}
