@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
@@ -21,7 +22,6 @@ def index(request):
     return render(request, 'index.html', queries)
 
 def register(request):
-
     registered = False
 
     if request.method == 'POST':
@@ -61,7 +61,6 @@ def register(request):
 
 
 def user_login(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -82,7 +81,7 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
-def logout(request):
+def user_logout(request):
     del request.session['login']
-
-    return render(request,'login.html')
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
