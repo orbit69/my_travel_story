@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
+
+
 {% block title_block %}
     Index
 {% endblock %}
 
+{% block head_block %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+{% endblock %}
+
 {% block body_block %}
+    <div id="menu-bar">
+        {% with 'profile_images/'|add:picture as image_static %}
+        <img id="avatar" src="{% static image_static %}" height="100%" alt="avatar or default"/>
+        {% endwith %}
 
-    
+        {{ request_content }}
 
+        <input id="search-text" type="text" placeholder="Enter a location">
+        <input id="user-logout" type="button" value="LOGOUT" onclick="logout()">
+    </div>
+    <div id="side-bar"></div>
+    <div id="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
+    </script>
+    <script src="{% static 'scripts/index_script.js' %}"></script>
 {% endblock %}
