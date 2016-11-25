@@ -3,11 +3,23 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
+from .models import *
+
 
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    return render(request, 'index.html')
+    user_login = request.session['login']
+
+    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login).id).picture.name.split('/')[-1]
+    picture_path = picture_path.encode('ascii', 'ignore')
+
+    queries = {
+        'request_content': user_login,
+        'picture' : picture_path,
+    }
+
+    return render(request, 'index.html', queries)
 
 def register(request):
     registered = False
@@ -58,6 +70,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                request.session['login'] = username
                 return HttpResponseRedirect(reverse('index'))
             else:
                 return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")
@@ -68,5 +81,8 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
-
+def user_logout(request):
+    del request.session['login']
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
 
