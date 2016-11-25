@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
@@ -9,11 +9,18 @@
 </head>
 <body>
     <div id="menu-bar">
+        {% with 'profile_images/'|add:picture as image_static %}
+        <img id="avatar" src="{% static image_static %}" height="100%" alt="avatar or default"/>
+        {% endwith %}
+
         {{ request_content }}
+
+        <input id="search-text" type="text" placeholder="Enter a location">
+        <input id="user-logout" type="button" value="LOGOUT" onclick="logout()">
     </div>
     <div id="side-bar"></div>
     <div id="map-canvas"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?">
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
     <script src="{% static 'scripts/index_script.js' %}"></script>
 </body>
