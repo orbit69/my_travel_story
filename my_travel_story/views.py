@@ -1,30 +1,15 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import *
-
 
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    try:
-        user_login = request.session['login']
-    except KeyError, e:
-        return HttpResponseRedirect(reverse('login'))
-
-    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login).id).picture.name.split('/')[-1]
-    picture_path = picture_path.encode('ascii', 'ignore')
-
-    queries = {
-        'request_content': user_login,
-        'picture' : picture_path,
-    }
-
-    return render(request, 'index.html', queries)
+    return render(request, 'index.html')
 
 def register(request):
-
     registered = False
 
     if request.method == 'POST':
@@ -64,7 +49,6 @@ def register(request):
 
 
 def user_login(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -74,8 +58,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                request.session['login'] = username
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('restricted'))
             else:
                 return HttpResponse("Your MyTravelStory account is disabled, please contact admin.")
         else:
@@ -86,7 +69,4 @@ def user_login(request):
         return render(request, 'login.html', {})
 
 
-def logout(request):
-    del request.session['login']
 
-    return HttpResponseRedirect(reverse('login'))
