@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from my_travel_story import views
+
+from . import views
 
 
 urlpatterns = [
