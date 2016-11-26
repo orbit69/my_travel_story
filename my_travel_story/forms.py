@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from my_travel_story.models import Picture, Place, UserProfile
+from .models import Picture, Place, UserProfile
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

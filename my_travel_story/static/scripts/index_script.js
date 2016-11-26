@@ -4,10 +4,10 @@
     //map options
     var options = {
         center: {
-            lat: 37.791350,
-            lng: -122.435883
+            lat: 50.066793,
+            lng: 19.913251
         },
-        zoom: 10
+        zoom: 17
     },
         element = document.getElementById('map-canvas');
     //map
