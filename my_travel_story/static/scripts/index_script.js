@@ -13,13 +13,6 @@
     //map
     map = new google.maps.Map(element, options);
 
-    google.maps.event.addDomListener(window, 'resize', function(){
-        var center = map.getCenter();
-        map.setCenter(center);
-    });
-
-    google.maps.event.trigger(map,"resize");
-
     var input = /** @type {!HTMLInputElement} */(document.getElementById('search-text'));
 
     var autocomplete = new google.maps.places.Autocomplete(input);
@@ -29,6 +22,55 @@
     var marker = new google.maps.Marker({
         map: map,
         anchorPoint: new google.maps.Point(0,-29)
+    });
+
+    map.addListener('click',function(e){
+        marker.setVisible(false);
+        infowindow.close();
+        var position = e.latLng;
+        var address;
+        marker.setPosition(position);
+
+        var geocoder = new google.maps.Geocoder();
+
+
+            geocoder.geocode( {'latLng': position}, function(results,status){
+                if(status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                    document.getElementById("search-text").value = results[0].formatted_address;
+                    }
+                    else {
+                        return  "No result";
+                    }
+                }
+                else {
+                    return status;
+                }
+            });
+
+        address = document.getElementById("search-text").value;
+
+       // infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ address +
+       //     '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
+
+        marker.setIcon(/** @type {google.maps.Icon} **/ ({
+            url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
+            size: new google.maps.Size(71,71),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(17,34),
+            scaledSize: new google.maps.Size(35,35)
+        }));
+
+
+        marker.setVisible(true);
+        //infowindow.open(map,marker);
+    });
+
+    marker.addListener('click',function(){
+        var address = document.getElementById("search-text").value;
+        infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ address +
+           '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
+        infowindow.open(map,marker);
     });
 
     autocomplete.addListener('place_changed', function(){
@@ -49,8 +91,8 @@
             map.setZoom(17);
         }
 
-        marker.setIcon(/** @type {google.maps.Icon} */ ({
-            url: place.icon,
+        marker.setIcon(/** @type {google.maps.Icon} **/ ({
+            url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
             size: new google.maps.Size(71,71),
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(17,34),
@@ -69,11 +111,8 @@
             ].join(' ');
           }
 
-          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+            '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
           infowindow.open(map, marker);
     });
 }(window,google));
-
-function logout() {
-    alert("tu bedzie się można wylogować :D")
-}
