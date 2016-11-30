@@ -10,14 +10,17 @@ from .models import *
 from my_travel_story.forms import UserForm, UserProfileForm
 
 def index(request):
-    user_login = request.session['login']
+    user_login = {'login': request.session['login']}
 
-    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login).id).picture.name.split('/')[-1]
+    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id).picture.name.split('/')[-1]
     picture_path = picture_path.encode('ascii', 'ignore')
+
+    user_login['name'] = User.objects.get(username=user_login['login']).first_name
+    user_login['last_name'] = User.objects.get(username=user_login['login']).last_name
+    user_login['avatar'] = picture_path
 
     queries = {
         'request_content': user_login,
-        'picture' : picture_path,
     }
 
     return render(request, 'index.html', queries)

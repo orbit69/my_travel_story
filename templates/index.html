@@ -12,14 +12,15 @@
 
 {% block body_block %}
     <div id="menu-bar">
-        {% with 'profile_images/'|add:picture as image_static %}
+        {% with 'profile_images/'|add:request_content.avatar as image_static %}
         <img id="avatar" src="{% static image_static %}" height="100%" alt="avatar or default"/>
         {% endwith %}
 
-        {{ request_content }}
+        <span>{{ request_content.name }} {{ request_content.last_name }}</span>
+        <span>{{ request_content.login }}</span>
 
         <input id="search-text" type="text" placeholder="Enter a location">
-        <a href="{% url 'logout' %}"><input type="button" value="Logout"/> </a>
+        <a href="{% url 'logout' %}"><input type="button" class="button" value="Logout"/> </a>
 
     </div>
     <div id="side-bar"></div>
