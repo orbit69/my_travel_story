@@ -37,7 +37,19 @@
             geocoder.geocode( {'latLng': position}, function(results,status){
                 if(status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
-                    document.getElementById("search-text").value = results[0].formatted_address;
+
+                         infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ results[0].formatted_address +
+           '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
+                         marker.setIcon(/** @type {google.maps.Icon} **/ ({
+            url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
+            size: new google.maps.Size(71,71),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(17,34),
+            scaledSize: new google.maps.Size(35,35)
+
+        }));
+                          marker.setVisible(true);
+                        infowindow.open(map,marker);
                     }
                     else {
                         return  "No result";
@@ -48,30 +60,17 @@
                 }
             });
 
-        address = document.getElementById("search-text").value;
-
-       // infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ address +
-       //     '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
-
-        marker.setIcon(/** @type {google.maps.Icon} **/ ({
-            url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
-            size: new google.maps.Size(71,71),
-            origin: new google.maps.Point(0,0),
-            anchor: new google.maps.Point(17,34),
-            scaledSize: new google.maps.Size(35,35)
-        }));
 
 
-        marker.setVisible(true);
-        //infowindow.open(map,marker);
+
+
+
+
+
+        //
     });
 
-    marker.addListener('click',function(){
-        var address = document.getElementById("search-text").value;
-        infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ address +
-           '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
-        infowindow.open(map,marker);
-    });
+   
 
     autocomplete.addListener('place_changed', function(){
         infowindow.close();
