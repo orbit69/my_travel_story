@@ -38,8 +38,8 @@
                 if(status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
 
-                         infowindow.setContent(/*'<div><strong>' + place.name + '</strong><br>' +*/ results[0].formatted_address +
-           '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
+                         infowindow.setContent( results[0].formatted_address +
+           '<br/><a href="add_place"><input id="add_place" class="button" type="button" value="Add place"/></a> ');
                          marker.setIcon(/** @type {google.maps.Icon} **/ ({
             url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
             size: new google.maps.Size(71,71),
