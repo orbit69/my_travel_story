@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 
 
-from my_travel_story.forms import UserForm, UserProfileForm
+from my_travel_story.forms import UserForm, UserProfileForm, AddPlacePictureForm
 
 def index(request):
     user_login = {'login': request.session['login']}
@@ -91,4 +91,12 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
-#
+
+def add_place(request):
+    if request.method == 'post':
+        pass
+    else:
+        picture = AddPlacePictureForm()
+    return render(request,'add_place.html',{
+        'picture':picture
+    })
