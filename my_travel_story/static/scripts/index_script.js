@@ -28,18 +28,17 @@
         marker.setVisible(false);
         infowindow.close();
         var position = e.latLng;
-        var address;
         marker.setPosition(position);
-
+        var address;
         var geocoder = new google.maps.Geocoder();
 
 
             geocoder.geocode( {'latLng': position}, function(results,status){
                 if(status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
-
+                        address = results[0].formatted_address;
                          infowindow.setContent( results[0].formatted_address +
-           '<br/><a href="add_place"><input id="add_place" class="button" type="button" value="Add place"/></a> ');
+           '<br/><a href="add_place"><input id="add_place" class="button" type="button" value="Add place" /></a>');
                          marker.setIcon(/** @type {google.maps.Icon} **/ ({
             url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
             size: new google.maps.Size(71,71),
@@ -50,6 +49,8 @@
         }));
                           marker.setVisible(true);
                         infowindow.open(map,marker);
+                        document.getElementById("add_place").onclick = send_coordinates(position,address);
+                        alert("a tera jo");
                     }
                     else {
                         return  "No result";
@@ -59,15 +60,6 @@
                     return status;
                 }
             });
-
-
-
-
-
-
-
-
-        //
     });
 
    
@@ -111,7 +103,34 @@
           }
 
           infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-            '<br/><input id="add_place" class="button" type="button" value="Add place"/> ');
+            '<br/><a href="add_place"><input id="add_place" class="button" type="button" value="Add place"/> </a>');
           infowindow.open(map, marker);
+
+         document.getElementById("add_place").onclick = send_coordinates(place.geometry.location,address);
     });
 }(window,google));
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function send_coordinates(position,address){
+    var csrftoken = getCookie('csrftoken');
+    var req = new XMLHttpRequest();
+    req.open("POST","/mytravelstory/index/",true);
+    req.setRequestHeader("X-CSRFToken",csrftoken);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("latLng="+String(position)+"&placeName="+address);
+}

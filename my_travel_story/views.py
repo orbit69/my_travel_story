@@ -3,16 +3,20 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-
+from django.contrib.sessions import middleware
 from .models import *
 
 
 from my_travel_story.forms import UserForm, UserProfileForm, AddPlacePictureForm
 
+
+
 def index(request):
     user_login = {'login': request.session['login']}
-
-    picture_path = UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id).picture.name.split('/')[-1]
+    coordinates = ""
+    address = ""
+    picture_path = \
+    UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id).picture.name.split('/')[-1]
     picture_path = picture_path.encode('ascii', 'ignore')
 
     user_login['name'] = User.objects.get(username=user_login['login']).first_name
@@ -23,7 +27,14 @@ def index(request):
         'request_content': user_login,
     }
 
+    if request.method == 'POST':
+        coordinates = request.POST.get("latLng")
+        address = request.POST.get("placeName")
+
+    request.session['latLng'] = coordinates
+    request.session['placeName'] = address
     return render(request, 'index.html', queries)
+
 
 def register(request):
     registered = False
@@ -93,10 +104,22 @@ def user_logout(request):
 
 
 def add_place(request):
-    if request.method == 'post':
-        pass
+    if request.method == 'POST':
+        coordinates = request.session['latLng']
+        address = request.session['placeName']
+        lat = float(coordinates.split(",")[0][1:])
+        long = float(coordinates.split(",")[1][0:-2])
+
+        place = Place()
+        place.name = address
+        place.latitude = lat
+        place.longtitude = long
+        place.arrival = request.POST.get('place_arrival')
+        place.departure = request.POST.get('place_departure')
+        place.description = request.POST.get('place_story')
+        place.user_profile_fk = UserProfile.objects.get(id=User.objects.get(username=request.session['login']).id)
+
+        place.save()
+        return HttpResponseRedirect(reverse('index'))
     else:
-        picture = AddPlacePictureForm()
-    return render(request,'add_place.html',{
-        'picture':picture
-    })
+        return render(request,'add_place.html')
