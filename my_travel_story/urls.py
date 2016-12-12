@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^index/$', views.index, name='index'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^index/add_place/$', views.add_place, name='add_place'),
+    url(r'^index/show_place/$', views.show_place, name='show_place')
 ]

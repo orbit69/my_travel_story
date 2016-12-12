@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body_block %}
-    <p xmlns="http://www.w3.org/1999/html">tu bedzie form z dodawaniem miejsca do bazy</p>
 
+    <p>{{ coordinates }}</p>
     <form id="add_place_form" method="post" action="{% url 'add_place' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
@@ -30,10 +30,8 @@
         <p>Tell your story about the place:</p>
         <textarea name="place_story" rows="10" cols="100"></textarea>
         </br>
-        <p>Choose pictures you want to add:</p>
-        <input id="place_images" type="file" name="place_images" multiple onchange="picIter()"/>
-
+        <input type="submit" id="submit_place" value="Add Place"/>
     </form>
 
-    <script src="{% static 'scripts/add_place_script.js' %}"></script>
+
 {% endblock %}

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block title_block %}
     Index
 {% endblock %}
@@ -8,6 +7,7 @@
 {% block head_block %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block body_block %}
@@ -23,7 +23,15 @@
         <a href="{% url 'logout' %}"><input type="button" class="button" value="Logout"/> </a>
 
     </div>
-    <div id="side-bar"></div>
+    <div id="side-bar">
+        {% for place in places %}
+            <a href="{% url 'show_place' %}"><div class="side_menu_button">
+                <p>{{ place.name }}</p>
+                <span>{{ place.arrival }}</span>-
+                <span>{{ place.departure }}</span>
+            </div></a>
+        {% endfor %}
+    </div>
     <div id="map-canvas"></div>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
