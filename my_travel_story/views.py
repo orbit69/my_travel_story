@@ -33,6 +33,10 @@ def index(request):
 
     request.session['latLng'] = coordinates
     request.session['placeName'] = address
+
+    user_places = Place.objects.filter(user_profile_fk=
+                                       UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id))
+    queries['places'] = user_places
     return render(request, 'index.html', queries)
 
 
@@ -123,3 +127,6 @@ def add_place(request):
         return HttpResponseRedirect(reverse('index'))
     else:
         return render(request,'add_place.html')
+
+def show_place(request):
+    return render(request,'show_place.html')

@@ -50,7 +50,6 @@
                           marker.setVisible(true);
                         infowindow.open(map,marker);
                         document.getElementById("add_place").onclick = send_coordinates(position,address);
-                        alert("a tera jo");
                     }
                     else {
                         return  "No result";
