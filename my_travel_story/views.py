@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from datetime import datetime
-from datetime import date
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -32,7 +30,7 @@ def index(request):
         'request_content': user_login,
     }
 
-    if request.method == 'POST' and request.POST.get("latLng")!=None:
+    if request.method == 'POST':
         coordinates = request.POST.get("latLng")
         address = request.POST.get("placeName")
 
