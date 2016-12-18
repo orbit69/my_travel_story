@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
+from django.core import serializers
 from .models import *
 
 
@@ -27,9 +28,15 @@ def index(request):
         'request_content': user_login,
     }
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST.get("latLng")!=None:
         coordinates = request.POST.get("latLng")
         address = request.POST.get("placeName")
+
+    if request.method == 'POST' and request.POST.get("latLng")==None:
+        places = Place.objects.filter(user_profile_fk=
+                                       UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id))
+        data = serializers.serialize("json",places)
+        return HttpResponse(data)
 
     request.session['latLng'] = coordinates
     request.session['placeName'] = address
