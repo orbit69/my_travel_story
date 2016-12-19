@@ -5,39 +5,52 @@
 {% endblock %}
 
 {% block body_block %}
-
-    <h1>{{ place.name }}</h1>
-    <p>{{ place.arrival }} - {{ place.departure }}</p>
-    <p>My story about the place:</p>
-    <p>{{ place.description }}</p>
-
+    <div class="containter">
+    <div style="background-color:#8EC156">
+        <div class="container">
+	        <div class="row">
+                <center><img src="{% static 'logo.png' %}" style="width:268px;height:128px;"/></center>
+            </div>
+        </div>
+	</div>
+    <div class="jumbotron">
+                <center><h2>{{ place.name }}</h2></center>
+                <center><p>{{ place.arrival }} - {{ place.departure }}</p></center>
+                <center><p>{{ place.description }}</p></center>
     {% for picture in pictures %}
+        <center>
         {% with 'place_images/'|add:picture.name as image_static %}
             <img id="avatar" src="{% static image_static %}" height="50%"/>
         {% endwith %}
+        </br>
+        Title:<p>{{ picture.full.title }}</p>
 
-        <p>{{ picture.full.title }}</p>
+        Description:<p>{{ picture.full.description }}</p>
 
-        <p>{{ picture.full.description }}</p>
-
-        <p>{{ picture.full.rate }}</p>
-
+        Rate: <p>{{ picture.full.rate }}</p>
+        </center>
         </br>
     {% endfor %}
-
-    <button id="add_photo" value="Add Photo" onclick="showForm()">Add Photo</button>
-    <a href="{% url 'index' %}"><button id="return" value="To Index">To Index</button></a>
+    <center>
+        <button id="add_photo" value="Add Photo" class="btn btn-primary" onclick="showForm()">Add Photo</button>
+            <a href="{% url 'index' %}">
+                <button id="return" value="To Index" class="btn btn-primary">To Index</button>
+            </a>
+    </center>
     </br>
-    <form id="add_place_form" action="{% url 'show_place' %}" method="post" style="display: none" enctype="multipart/form-data">
-    {% csrf_token %}
-        {{ picture_form.as_p }}
-    <input type="submit" value="Submit" />
-    </form>
-
+    <center>
+        <form id="add_place_form" action="{% url 'show_place' %}" method="post" style="display: none" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{ picture_form.as_p }}
+        <button class="btn btn-primary">Submit</button>
+        </form>
+    </center>
+    </div>
     <script>
         function showForm(){
             var form = document.getElementById("add_place_form");
             form.style.display = "initial";
         }
     </script>
+    </div>
 {% endblock %}
