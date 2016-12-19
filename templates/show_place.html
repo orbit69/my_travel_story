@@ -1,7 +1,43 @@
 {% extends 'base.html' %}
 
+{% block head_block %}
+    {% load static %}
+{% endblock %}
+
 {% block body_block %}
 
-    <h1>TU BEDZIE MAGIA ;d DODAWANIE/WYŚWIETLANIE ZDJĘĆ... OGÓLNE EDYCJE ITP</h1>
+    <h1>{{ place.name }}</h1>
+    <p>{{ place.arrival }} - {{ place.departure }}</p>
+    <p>My story about the place:</p>
+    <p>{{ place.description }}</p>
 
+    {% for picture in pictures %}
+        {% with 'place_images/'|add:picture.name as image_static %}
+            <img id="avatar" src="{% static image_static %}" height="50%"/>
+        {% endwith %}
+
+        <p>{{ picture.full.title }}</p>
+
+        <p>{{ picture.full.description }}</p>
+
+        <p>{{ picture.full.rate }}</p>
+
+        </br>
+    {% endfor %}
+
+    <button id="add_photo" value="Add Photo" onclick="showForm()">Add Photo</button>
+    <a href="{% url 'index' %}"><button id="return" value="To Index">To Index</button></a>
+    </br>
+    <form id="add_place_form" action="{% url 'show_place' %}" method="post" style="display: none" enctype="multipart/form-data">
+    {% csrf_token %}
+        {{ picture_form.as_p }}
+    <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+        function showForm(){
+            var form = document.getElementById("add_place_form");
+            form.style.display = "initial";
+        }
+    </script>
 {% endblock %}
