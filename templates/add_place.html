@@ -16,7 +16,7 @@
         <div class="jumbotron">
             <center>
     <p>{{ coordinates }}</p>
-    <form id="add_place_form" method="post" action="{% url 'add_place' %}" enctype="multipart/form-data">
+    <form id="place_form" method="post" action = "{% url 'add_place' %}">
         {% csrf_token %}
         <table>
             <tr>
