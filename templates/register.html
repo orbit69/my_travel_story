@@ -5,17 +5,26 @@
 {% endblock %}
 
 {% block body_block %}
+    <div class="container">
     {% if registered %}
-        Thank You for registration! </br>
-        Now you can log in
-        <a href="{% url 'login' %}"><>HERE<</a>
+          <div class="jumbotron">
+        <center><h1>Thank You for registration!</h1> </center></br>
+        <center><a href="{% url 'login' %}">Now you can log in</a></center>
+        </div>
     {% else %}
-        Register here:
+        <div class="row">
+        <div class="col-md-2 col-md-offset-5">
         <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
-            <input type="submit" name="submit" value="Register"/>
+            <div class="row">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Register
+                </button>
+            </div>
         </form>
+        </div>
+        </div>
     {% endif %}
 {% endblock %}
