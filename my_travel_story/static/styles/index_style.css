@@ -108,3 +108,45 @@ body {
 
 
 
+#side-bar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.side_bar_nav {
+    margin: 0;
+    padding: 0;
+    position: inherit;
+    width: 25%;
+    list-style: none;
+}
+
+.side_bar_nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.side_bar_nav li a {
+    display: block;
+    text-decoration: none;
+    color: #524c4c;
+}
+
+.side_bar_nav li a:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 1);
+    background: rgb(147, 208, 255);
+}
+
+
+
+
+
+
+
+
