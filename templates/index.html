@@ -3,30 +3,54 @@
     <head>
         <meta charset="UTF-8">
        {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+
     </head>
     <body onload="getMarkerData()">
-    <div id="menu-bar">
+    <div id="menu-bar" class="navbar navbar-default">
+        <div>
         {% with 'profile_images/'|add:request_content.avatar as image_static %}
-        <img id="avatar" src="{% static image_static %}" height="100%" alt="avatar or default"/>
+        <img id="avatar" src="{% static image_static %}" class="img-thumbnail" alt="avatar or default"  />
         {% endwith %}
+        </div>
 
-        <span>{{ request_content.name }} {{ request_content.last_name }}</span>
-        <span>{{ request_content.login }}</span>
-        <span id="test"></span>
-        <input id="search-text" type="text" placeholder="Enter a location">
-        <a href="{% url 'logout' %}"><input type="button" class="button" value="Logout"/> </a>
+        <div id="name_log">
+            {{ request_content.name }} {{ request_content.last_name }} ({{ request_content.login }})
+        </div>
+
+          <div id="search_box">
+            <input id="search-text" type="text" placeholder="Enter a location">
+            </div>
+
+            <div id="logout_box">
+            <a href="{% url 'logout' %}"><input type="button" class="btn btn-default" value="Logout"/> </a>
+            </div>
 
     </div>
+
+
     <div id="side-bar">
+    <div id="side-bar-wrapper">
+    <ul class="side_bar_nav">
         {% for place in places %}
-            <div class="side_menu_button">
+            <li class="sidebar_element">
+            <a  class="side_bar">
+                <div>
                 <p>{{ place.name }}</p>
                 <p>{{ place.arrival }}-{{ place.departure }}</p>
-            </div>
+                    </div>
+            </a>
+            </li>
         {% endfor %}
+    </ul>
     </div>
+    </div>
+
+
     <div id="map-canvas" ></div>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
