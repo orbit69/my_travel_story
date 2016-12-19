@@ -5,41 +5,43 @@
 {% endblock %}
 
 {% block body_block %}
-
+    <div class="containter">
+    <div style="background-color:#8EC156">
+        <div class="container">
+	        <div class="row">
+                <center><img src="{% static 'logo.png' %}" style="width:268px;height:128px;"/></center>
+            </div>
+        </div>
+	</div>
+        <div class="jumbotron">
+            <center>
     <p>{{ coordinates }}</p>
-    <form id="place_form" method="post" action = "{% url 'add_place' %}">
+    <form id="add_place_form" method="post" action="{% url 'add_place' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-        <input type="submit" name="submit" value="Add Place"/>
+        <table>
+            <tr>
+                <td>
+                    Arrival date:
+                </td>
+                <td>
+                    Departure date:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="date" name="place_arrival" />
+                </td>
+                <td>
+                    <input type="date" name="place_departure" />
+                </td>
+            </tr>
+        </table>
+        <p>Tell your story about the place:</p>
+        <textarea name="place_story" rows="10" cols="100"></textarea>
+        </br>
+        <button class="btn btn-primary">Submit</button>
     </form>
-{% endblock %}
+    </center>
+</div>
 
-{#{% extends 'rango/base.html' %}#}
-{##}
-{#{% block title_block %}#}
-{#    Adding Category#}
-{#{% endblock %}#}
-{##}
-{#{% block body_block %}#}
-{##}
-{#    <form id="category_form" method="post" action="{% url 'add_category' %}">#}
-{#        {% csrf_token %}#}
-{#        {% for hidden in form.hidden_fields %}#}
-{#            {{ hidden }}#}
-{#        {% endfor %}#}
-{#        {% for field in form.visible_fields %}#}
-{#            {{ field.errors }}#}
-{#            {{ field.help_text }}#}
-{#            {{ field }}#}
-{#        {% endfor %}#}
-{#        <input type="submit" name="submit" value="Create Category"/>#}
-{#    </form>#}
-{##}
-{#{% endblock %}#}
+{% endblock %}
