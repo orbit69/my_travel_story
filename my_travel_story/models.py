@@ -30,7 +30,7 @@ class Place(models.Model):
 
 
 class Picture(models.Model):
-    photo = models.ImageField(upload_to='place_images')
+    photo = models.ImageField(upload_to='my_travel_story/static/place_images',blank=True)
     title = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
     rate = models.IntegerField(blank=True)

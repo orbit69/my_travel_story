@@ -1,10 +1,11 @@
 function getMarkerData(){
+    giveChildFunc();
     var csrftoken = getCookie('csrftoken');
     var req = new XMLHttpRequest();
     req.open("POST","",true);
     req.setRequestHeader("X-CSRFToken",csrftoken);
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    req.send();
+    req.send("action=1");
     req.onreadystatechange = function(){
         if(req.readyState==4 && req.status==200) {
             (function (window, google) {
@@ -44,8 +45,10 @@ function getMarkerData(){
                         staticInfos.push(si);
                     si.setContent(this.name + "</br>" +
                                     this.arrival + " - " + this.departure + "</br>" +
-                                    '<br/><a href="show_place"><input id="show_place" class="button" type="button" value="Show place" /></a>');
+                                    '<input id="show_place" class="button" type="button" value="Show place" />');
                         si.open(map,this);
+                        var button = document.getElementById("show_place");
+                        button.addEventListener("click",showFromMap);
                     });
                 }
 
@@ -147,7 +150,24 @@ function getMarkerData(){
             }(window, google));
 
         }
-    }
+    };
+
+}
+
+function showFromMap(){
+    var date = this.previousSibling.previousSibling.nodeValue;
+    var name = this.previousSibling.previousSibling.previousSibling.previousSibling.nodeValue;
+    var csrftoken = getCookie('csrftoken');
+    var req = new XMLHttpRequest();
+    req.open("POST","",true);
+    req.setRequestHeader("X-CSRFToken",csrftoken);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("mapName="+name+"&mapDate="+date);
+    req.onreadystatechange = function(){
+      if(req.readyState==4) {
+          window.location.href = "show_place"
+      }
+    };
 }
 
 function getCookie(name) {
@@ -173,4 +193,30 @@ function send_coordinates(position,address){
     req.setRequestHeader("X-CSRFToken",csrftoken);
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.send("latLng="+String(position)+"&placeName="+address);
+}
+
+function sendPlaceData(){
+    childElems = this.getElementsByTagName("p");
+    var name = childElems[0].firstChild.nodeValue;
+    var date = childElems[1].firstChild.nodeValue;
+    var csrftoken = getCookie('csrftoken');
+    var req = new XMLHttpRequest();
+    req.open("POST","",true);
+    req.setRequestHeader("X-CSRFToken",csrftoken);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("name="+name+"&date="+date);
+    req.onreadystatechange = function(){
+      if(req.readyState==4) {
+          window.location.href = "show_place"
+      }
+    };
+}
+
+function giveChildFunc(){
+    sideBar = document.getElementById("side-bar");
+    sideBarChildren = sideBar.getElementsByTagName("div");
+
+    for(var ind=0;ind<sideBar.childElementCount;ind++){
+        sideBarChildren[ind].addEventListener("click", sendPlaceData);
+    }
 }

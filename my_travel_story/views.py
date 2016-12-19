@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import datetime;
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -16,6 +17,7 @@ def index(request):
     user_login = {'login': request.session['login']}
     coordinates = ""
     address = ""
+    date = ""
     picture_path = \
     UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id).picture.name.split('/')[-1]
     picture_path = picture_path.encode('ascii', 'ignore')
@@ -32,18 +34,36 @@ def index(request):
         coordinates = request.POST.get("latLng")
         address = request.POST.get("placeName")
 
-    if request.method == 'POST' and request.POST.get("latLng")==None:
+    if request.method == 'POST' and request.POST.get("action")=='1':
         places = Place.objects.filter(user_profile_fk=
                                        UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id))
         data = serializers.serialize("json",places)
         return HttpResponse(data)
 
+    if request.method == 'POST' and request.POST.get('name')!=None:
+        address = request.POST.get("name")
+        date = request.POST.get('date').split('-')
+        date = map(lambda x: datetime.strptime(x,'%b. %d, %Y')
+                   ,date)
+        date = map(lambda x: x.date().isoformat()
+                   , date)
+
+    if request.method == 'POST' and request.POST.get('mapName')!=None:
+        address = request.POST.get("mapName")
+        date = request.POST.get("mapDate").split(' - ')
+        date = map(lambda x: datetime.strptime(x, '%Y-%m-%d')
+                   , date)
+        date = map(lambda x: x.date().isoformat()
+                    , date)
+
     request.session['latLng'] = coordinates
     request.session['placeName'] = address
+    request.session['date'] = str(date)
 
     user_places = Place.objects.filter(user_profile_fk=
                                        UserProfile.objects.get(id=User.objects.get(username=user_login['login']).id))
     queries['places'] = user_places
+
     return render(request, 'index.html', queries)
 
 
@@ -136,4 +156,36 @@ def add_place(request):
         return render(request,'add_place.html')
 
 def show_place(request):
-    return render(request,'show_place.html')
+    name = request.session['placeName']
+    dates = request.session['date']
+    arrival = dates.split("', '")[0][2:]
+    depart = dates.split("', '")[1][0:-2]
+    place = Place.objects.get(name=name, arrival=arrival, departure=depart)
+
+    pictures = Picture.objects.filter(place=place)
+
+    if request.method == 'POST':
+        picture_form = AddPlacePictureForm(request.POST, request.FILES)
+        print request.FILES.keys()
+        print request.POST.get.__str__()
+
+        if picture_form.is_valid():
+            picture = picture_form.save(commit=False)
+
+            picture.place = place
+
+            picture.save()
+        else:
+            print(picture_form.errors)
+    else:
+        picture_form = AddPlacePictureForm()
+
+    queries = {}
+    queries['place'] = place
+    queries['picture_form'] = picture_form
+
+    queries['pictures'] = map(lambda x: {'full':x, 'name': x.photo.name.split('/')[-1]}
+                            ,pictures)
+    print queries['pictures']
+
+    return render(request,'show_place.html',queries)
