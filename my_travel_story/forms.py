@@ -20,4 +20,3 @@ class AddPlacePictureForm(forms.ModelForm):
     class Meta:
         model = Picture
         fields = ('photo', 'title', 'description', 'rate')
-
