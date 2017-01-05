@@ -24,16 +24,20 @@ body {
 }
 
 #search_box{
-    margin-left:35%;
+    text-align:center;
+    margin:auto;
     height:100%;
-    width:15%;
+    width:20%;
 }
 #search_box input{
+    text-align: center;
     width:100%;
-    height:100%;
+    height:70%;
 }
 
 #logout_box{
+    position:absolute;
+    right:0px;
      margin-left:25%;
     width:12%;
 }
