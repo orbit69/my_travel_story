@@ -15,7 +15,7 @@ sendLinkData.onclick = function(){
     var fromDate = document.getElementById("link_from");
     var toDate = document.getElementById("link_to");
     alert(fromDate.value + " " + toDate.value);
-    
+
     var csrftoken = getCookie('csrftoken');
     var req = new XMLHttpRequest();
     req.open("POST","",true);
@@ -252,6 +252,7 @@ function giveChildFunc(){
     sideBar = document.getElementById("side-bar");
 
     sideBarChildren = sideBar.getElementsByTagName("div");
+
 
     for(var ind=0;ind<sideBar.childElementCount;ind++){
         sideBarChildren[ind].addEventListener("click", sendPlaceData);
