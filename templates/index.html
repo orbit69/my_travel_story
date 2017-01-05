@@ -45,14 +45,16 @@
     <div id="side-bar">
         <div id="side-bar-wrapper">
             <ul class="side_bar_nav">
-                {% for place in places %}
-                <li class="sidebar_element">
-                    <a class="side_bar">
-                        <p>{{ place.name }}</p>
-                        <p>{{ place.arrival }}-{{ place.departure }}</p>
-                    </a>
-                </li>
-                {% endfor %}
+        {% for place in places %}
+            <li class="sidebar_element">
+            <a  class="side_bar">
+                <div>
+                <p>{{ place.name }}</p>
+                <p>{{ place.arrival }}-{{ place.departure }}</p>
+                    </div>
+            </a>
+            </li>
+        {% endfor %}
             </ul>
         </div>
     </div>
