@@ -12,7 +12,7 @@
 </head>
 
 <body onload="getMarkerData()">
-
+    <center>
         <div id="menu-bar" class="navbar navbar-default">
             {% with 'profile_images/'|add:request_content.avatar as image_static %}
             <img id="avatar" src="{% static image_static %}" class="img-thumbnail" alt="avatar or default" style="width:80px;height:80px;" /> {% endwith %}
@@ -24,8 +24,8 @@
                 <input id="search-text" type="text" placeholder="Enter a location">
             </div>
 
-            <div id="logout_box" class="dropdown">
-                <button  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu
   <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'measure_distance' %}">Measure Distance</a></li>
