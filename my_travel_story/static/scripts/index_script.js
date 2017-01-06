@@ -1,3 +1,35 @@
+var show_link_request = document.getElementById("myBtn");
+show_link_request.onclick = function(){
+    var req_box = document.getElementById("myModal");
+    req_box.style.visibility="visible";
+};
+
+var close_request = document.getElementsByClassName("close")[0];
+close_request.onclick = function () {
+    var req_box = document.getElementById("myModal");
+    req_box.style.visibility="hidden";
+};
+
+var sendLinkData = document.getElementById("link_generate");
+sendLinkData.onclick = function(){
+    var fromDate = document.getElementById("link_from");
+    var toDate = document.getElementById("link_to");
+    alert(fromDate.value + " " + toDate.value);
+    
+    var csrftoken = getCookie('csrftoken');
+    var req = new XMLHttpRequest();
+    req.open("POST","",true);
+    req.setRequestHeader("X-CSRFToken",csrftoken);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("from="+fromDate.value+"&to="+toDate.value);
+    req.onreadystatechange = function(){
+        if(req.readyState==4 && req.status==200){
+            var resString = "http://127.0.0.1:8000/mytravelstory/shared_link/"+req.responseText;
+            document.getElementById("result_link").innerHTML = resString;
+        }
+    };
+};
+
 function getMarkerData(){
     giveChildFunc();
     var csrftoken = getCookie('csrftoken');
@@ -152,7 +184,10 @@ function getMarkerData(){
         }
     };
 
+
 }
+
+
 
 function showFromMap(){
     var date = this.previousSibling.previousSibling.nodeValue;
@@ -224,3 +259,4 @@ function giveChildFunc(){
         sideBarChildren[ind].addEventListener("click", sendPlaceData);
     }
 }
+

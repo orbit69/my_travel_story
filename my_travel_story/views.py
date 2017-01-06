@@ -7,6 +7,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
 from django.core import serializers
 from .models import *
+from Crypto.Cipher import AES
+import base64
+import random
 
 
 from my_travel_story.forms import UserForm, UserProfileForm, AddPlacePictureForm
@@ -48,6 +51,18 @@ def index(request):
                    ,date)
         date = map(lambda x: x.date().isoformat()
                    , date)
+
+    if request.method == 'POST' and request.POST.get('from')!=None:
+        dateFrom = request.POST.get("from")
+        dateFrom = datetime.strptime(dateFrom,'%Y-%m-%d').date().isoformat()
+        dateTo = request.POST.get("to")
+        dateTo = datetime.strptime(dateTo, '%Y-%m-%d').date().isoformat()
+
+        data_string = user_login['login']+"%"+user_login['name']+"%"+user_login['last_name']+"%"+str(dateFrom)+"%"+str(dateTo)
+
+        return HttpResponse(data_string)
+
+
 
     if request.method == 'POST' and request.POST.get('mapName')!=None:
         address = request.POST.get("mapName")
@@ -156,6 +171,16 @@ def add_place(request):
     else:
         return render(request,'add_place.html')
 
+
+def measure_distance(request):
+    if request.method == "POST":
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+
+    else:
+        return render(request, 'distance.html')
+
+
 def show_place(request):
     name = request.session['placeName']
     dates = request.session['date']
@@ -190,3 +215,6 @@ def show_place(request):
     print queries['pictures']
 
     return render(request,'show_place.html',queries)
+
+def shared_link(request):
+    return render(request,'shared_link.html')

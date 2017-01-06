@@ -1,59 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-       {% load static %}
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8"> {% load static %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_style.css' %}" />
 
-    </head>
-    <body onload="getMarkerData()">
-    <div id="menu-bar" class="navbar navbar-default">
-        <div>
-        {% with 'profile_images/'|add:request_content.avatar as image_static %}
-        <img id="avatar" src="{% static image_static %}" class="img-thumbnail" alt="avatar or default"  />
-        {% endwith %}
-        </div>
+</head>
 
-        <div id="name_log">
-            {{ request_content.name }} {{ request_content.last_name }} ({{ request_content.login }})
-        </div>
+<body onload="getMarkerData()">
 
-          <div id="search_box">
-            <input id="search-text" type="text" placeholder="Enter a location">
+        <div id="menu-bar" class="navbar navbar-default">
+            {% with 'profile_images/'|add:request_content.avatar as image_static %}
+            <img id="avatar" src="{% static image_static %}" class="img-thumbnail" alt="avatar or default" style="width:80px;height:80px;" /> {% endwith %}
+            <div id="name_log">
+                {{ request_content.name }} {{ request_content.last_name }} ({{ request_content.login }})
             </div>
 
-            <div id="logout_box">
-            <a href="{% url 'logout' %}"><input type="button" class="btn btn-default" value="Logout"/> </a>
+            <div id="search_box">
+                <input id="search-text" type="text" placeholder="Enter a location">
             </div>
+
+            <div id="logout_box" class="dropdown">
+                <button  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu
+  <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'measure_distance' %}">Measure Distance</a></li>
+                    <li><a id="myBtn">Generate link</a></li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout </a>
+                    </li>
+                </ul>
+            </div>
+
+
 
     </div>
 
 
+</div>
     <div id="side-bar">
         <div id="side-bar-wrapper">
             <ul class="side_bar_nav">
-        {% for place in places %}
-            <li class="sidebar_element">
-            <a  class="side_bar">
-                <div>
-                <p>{{ place.name }}</p>
-                <p>{{ place.arrival }}-{{ place.departure }}</p>
-                    </div>
-            </a>
-            </li>
-        {% endfor %}
+                {% for place in places %}
+                <li class="sidebar_element">
+                    <a class="side_bar">
+                        <p>{{ place.name }}</p>
+                        <p>{{ place.arrival }}-{{ place.departure }}</p>
+                    </a>
+                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
 
 
-    <div id="map-canvas" ></div>
+    <div id="map-canvas"></div>
+
+        <div id="myModal">
+            <div id="myModalContent">
+                <span class="close">&times;</span>
+                <table>
+                    <tr>
+                    <td colspan="3" align="center">Tell dates between which to generate link:</td>
+            </tr>
+                <tr>
+                    <td><input type="date" id="link_from"></td>
+                    <td> - </td>
+                    <td><input type="date" id="link_to"></td>
+                </tr>
+                    <tr>
+                        <td colspan="3" align="center"><button id="link_generate">Generate Link</button> </td>
+                    </tr>
+            </table>
+
+                <p id="result_link"></p>
+
+            </div>
+        </div>
+
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
     <script src="{% static 'scripts/index_script.js' %}"></script>
-    </body>
+</body>
+
 </html>
