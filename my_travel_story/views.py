@@ -202,6 +202,15 @@ def add_place(request):
         return render(request,'add_place.html')
 
 
+def measure_distance(request):
+    if request.method == "POST":
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+
+    else:
+        return render(request, 'distance.html')
+
+
 def show_place(request):
     name = request.session['placeName']
     dates = request.session['date']
