@@ -14,4 +14,23 @@
         </div>
 	</div>
         </div>
+
+    <form id="measure_form" method="post" action="{% url 'measure_distance' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+<input type="date" name="start_date"/>
+<input type="date" name="end_date"/>
+            <button class="btn btn-primary">Submit</button>
+</form>
+{{ login }}
+    {{ name }}
+    <br>
+---------
+            {% for place in places %}
+
+                <p>{{ place.arrival }}-{{ place.departure }}</p>
+                <p>{{ place.latitude }} -$$$- {{ place.longtitude }}</p>
+                -----------
+            {% endfor %}
+    Total distance: {{ distance }}
+    <a href="{% url 'index' %}">INDEX</a>
 {% endblock %}
