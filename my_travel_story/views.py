@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from datetime import datetime;
 from django.db.models import Q,QuerySet
-from datetime import datetime
 from datetime import date
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
 from django.core import serializers
 from .models import *
+
 from math import sin, cos, radians, degrees, acos
 
 
