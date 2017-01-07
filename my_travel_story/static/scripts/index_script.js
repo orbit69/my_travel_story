@@ -24,7 +24,7 @@ sendLinkData.onclick = function(){
     req.send("from="+fromDate.value+"&to="+toDate.value);
     req.onreadystatechange = function(){
         if(req.readyState==4 && req.status==200){
-            var resString = "http://127.0.0.1:8000/mytravelstory/shared_link/"+req.responseText;
+            var resString = "http://127.0.0.1:8000/mytravelstory/shared_link?data="+req.responseText;
             document.getElementById("result_link").innerHTML = resString;
         }
     };
