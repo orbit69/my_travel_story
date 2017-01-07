@@ -8,9 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
 from django.core import serializers
 from .models import *
-from Crypto.Cipher import AES
-import base64
-import random
+
 
 from math import sin, cos, radians, degrees, acos
 
