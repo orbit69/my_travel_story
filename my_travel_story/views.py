@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from datetime import datetime;
+from django.db.models import Q,QuerySet
+from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -7,9 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
 from django.core import serializers
 from .models import *
-from Crypto.Cipher import AES
-import base64
-import random
+
 
 
 from my_travel_story.forms import UserForm, UserProfileForm, AddPlacePictureForm
@@ -216,4 +215,33 @@ def show_place(request):
     return render(request,'show_place.html',queries)
 
 def shared_link(request):
-    return render(request,'shared_link.html')
+    queries = {}
+
+    if request.method=='GET':
+        data = request.GET.get('data')
+        data = data.split('%')
+        data[2] = data[2].split(" ")
+
+        l = data[0]
+        n = data[1]
+        s = data[2][0]
+        f = data[2][1]
+        f = f.encode('ascii','ignore')
+        f = datetime.date(datetime.strptime(f,'%y-%m-%d'))
+        t = data[2][2]
+        t = t.encode('ascii','ignore')
+        t = datetime.date(datetime.strptime(t,'%y-%m-%d'))
+
+        person = User.objects.get(username=l,first_name=n,last_name=s)
+        person = UserProfile.objects.get(user=person)
+        places = Place.objects.filter(user_profile_fk=person)
+        places = places.filter(Q(arrival__range=(f,t)) | Q(departure__range=(f,t)))
+
+        queries['login'] = l
+        queries['name'] = n
+        queries['last'] = s
+        queries['fromD'] = f
+        queries['toD'] = t
+        queries['places'] = serializers.serialize("json", places)
+
+    return render(request,'shared_link.html',queries)
