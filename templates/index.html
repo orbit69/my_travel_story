@@ -12,7 +12,7 @@
 </head>
 
 <body onload="getMarkerData()">
-    <center>
+
         <div id="menu-bar" class="navbar navbar-default">
             {% with 'profile_images/'|add:request_content.avatar as image_static %}
             <img id="avatar" src="{% static image_static %}" class="img-thumbnail" alt="avatar or default" style="width:80px;height:80px;" /> {% endwith %}
@@ -24,22 +24,24 @@
                 <input id="search-text" type="text" placeholder="Enter a location">
             </div>
 
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu
+            <div id="logout_box" class="dropdown">
+                <button  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu
   <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'measure_distance' %}">Measure Distance</a></li>
-                    <li><a href="">Generate link</a></li>
+                    <li><a id="myBtn">Generate link</a></li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout </a>
+                    </li>
                 </ul>
             </div>
 
-            <div id="logout_box">
-                <a href="{% url 'logout' %}"><input type="button" class="btn btn-default" value="Logout" /> </a>
-            </div>
-    </center>
+
+
     </div>
 
 
+</div>
     <div id="side-bar">
         <div id="side-bar-wrapper">
             <ul class="side_bar_nav">
@@ -57,6 +59,29 @@
 
 
     <div id="map-canvas"></div>
+
+        <div id="myModal">
+            <div id="myModalContent">
+                <span class="close">&times;</span>
+                <table>
+                    <tr>
+                    <td colspan="3" align="center">Tell dates between which to generate link:</td>
+            </tr>
+                <tr>
+                    <td><input type="date" id="link_from"></td>
+                    <td> - </td>
+                    <td><input type="date" id="link_to"></td>
+                </tr>
+                    <tr>
+                        <td colspan="3" align="center"><button id="link_generate">Generate Link</button> </td>
+                    </tr>
+            </table>
+
+                <textarea rows="1" cols="50" id="result_link"></textarea>
+
+            </div>
+        </div>
+
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places">
     </script>
     <script src="{% static 'scripts/index_script.js' %}"></script>
