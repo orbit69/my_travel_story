@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q,QuerySet
 from datetime import datetime
+from datetime import date
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -8,8 +9,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sessions import middleware
 from django.core import serializers
 from .models import *
-
-
 from math import sin, cos, radians, degrees, acos
 
 
@@ -200,35 +199,6 @@ def add_place(request):
         return HttpResponseRedirect(reverse('index'))
     else:
         return render(request,'add_place.html')
-
-
-def measure_distance(request):
-    queries = {'login' : request.session['login']}
-    user_places = Place.objects.filter(user_profile_fk=
-                                       UserProfile.objects.get(id=User.objects.get(username=queries['login']).id)).order_by('arrival')
-    if request.method == "POST":
-        start_date  = datetime.strptime(request.POST.get('start_date'), "%Y-%m-%d")
-        end_date    = datetime.strptime(request.POST.get('end_date'), "%Y-%m-%d")
-        events = user_places.filter(arrival__range=(start_date, end_date))
-
-        long = user_places.filter(arrival__range=(start_date, end_date)).values_list("longtitude", flat=True)
-        lat = user_places.filter(arrival__range=(start_date, end_date)).values_list("latitude", flat=True)
-        res_in_metres = 0.0
-
-        if long.count() >= 2:
-            for i in range(0, long.count()-1, 1):
-                lat_a = radians(lat[i])
-                lat_b = radians(lat[i+1])
-                long_delta = radians(long[i] - long[i+1])
-                distance = (sin(lat_a) * sin(lat_b) + cos(lat_a) * cos(lat_b) * cos(long_delta))
-                res_in_metres += degrees(acos(distance)) * 111189.57696000072
-
-        queries['distance'] = res_in_metres
-        queries['places'] = events
-    else:
-        queries['places'] = user_places
-
-    return render(request, 'distance.html', queries)
 
 
 def show_place(request):
