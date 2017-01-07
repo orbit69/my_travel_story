@@ -234,7 +234,6 @@ function sendPlaceData(){
     childElems = this.getElementsByTagName("p");
     var name = childElems[0].firstChild.nodeValue;
     var date = childElems[1].firstChild.nodeValue;
-
     var csrftoken = getCookie('csrftoken');
     var req = new XMLHttpRequest();
     req.open("POST","",true);
@@ -250,10 +249,9 @@ function sendPlaceData(){
 
 function giveChildFunc(){
 
-    sideBar = document.getElementsByClassName("side_bar_nav");
-    sideBar = sideBar[0];
-    sideBarChildren = sideBar.getElementsByTagName("div");
+    sideBar = document.getElementById("side-bar");
 
+    sideBarChildren = sideBar.getElementsByTagName("div");
 
     for(var ind=0;ind<sideBar.childElementCount;ind++){
         sideBarChildren[ind].addEventListener("click", sendPlaceData);
