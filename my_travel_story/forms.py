@@ -20,9 +20,3 @@ class AddPlacePictureForm(forms.ModelForm):
     class Meta:
         model = Picture
         fields = ('photo', 'title', 'description', 'rate')
-
-
-class MeasureForm(forms.ModelForm):
-    class Meta:
-        model = Place
-        fields = ('arrival', 'arrival')
