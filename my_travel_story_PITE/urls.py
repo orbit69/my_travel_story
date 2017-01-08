@@ -20,5 +20,5 @@ from my_travel_story import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/$', include('my_travel_story.urls')),
+    url(r'^', include('my_travel_story.urls')),
 ]
