@@ -14,7 +14,6 @@ var sendLinkData = document.getElementById("link_generate");
 sendLinkData.onclick = function(){
     var fromDate = document.getElementById("link_from");
     var toDate = document.getElementById("link_to");
-    alert(fromDate.value + " " + toDate.value);
     
     var csrftoken = getCookie('csrftoken');
     var req = new XMLHttpRequest();
@@ -24,7 +23,7 @@ sendLinkData.onclick = function(){
     req.send("from="+fromDate.value+"&to="+toDate.value);
     req.onreadystatechange = function(){
         if(req.readyState==4 && req.status==200){
-            var resString = "http://127.0.0.1:8000/mytravelstory/shared_link?data="+req.responseText;
+            var resString = "http://mytravelstory.herokuapp.com/shared_link?data="+req.responseText;
             document.getElementById("result_link").innerHTML = resString;
         }
     };
