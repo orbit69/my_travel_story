@@ -1,1 +1,1 @@
-web: gunicorn my_travel_story_PITE.wsgi
+web: python manage.py runserver
