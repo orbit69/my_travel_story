@@ -28,7 +28,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 SECRET_KEY = ')rrdt((p(+dg0gc((fu$=!tv$%yiw77@emq@wyo9b=p-#4#ky5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -84,15 +84,11 @@ WSGI_APPLICATION = 'my_travel_story_PITE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd3ke1erqg0lqo0',
-        'PASSWORD': '3db600a97eea3ef55293021d7eb4e0db43b537ba9cca036e939ce77f566586a2',
-        'USER': 'vorfcynsuumhyt',
-        'PORT': '5432',
-        'HOST': 'ec2-54-243-55-1.compute-1.amazonaws.com',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-DATABASES['default'] = dj_database_url.config()
+#DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
