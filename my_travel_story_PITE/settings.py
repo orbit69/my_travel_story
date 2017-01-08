@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import dj_database_url
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +28,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 SECRET_KEY = ')rrdt((p(+dg0gc((fu$=!tv$%yiw77@emq@wyo9b=p-#4#ky5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -83,14 +85,14 @@ WSGI_APPLICATION = 'my_travel_story_PITE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pite',
-        'PASSWORD': 'Sz011235813S',
-        'USER': 'postgres',
+        'NAME': 'd3ke1erqg0lqo0',
+        'PASSWORD': '3db600a97eea3ef55293021d7eb4e0db43b537ba9cca036e939ce77f566586a2',
+        'USER': 'vorfcynsuumhyt',
         'PORT': '5432',
-        'HOST': 'localhost',
+        'HOST': 'ec2-54-243-55-1.compute-1.amazonaws.com',
     }
 }
-
+DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
