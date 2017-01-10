@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f2aaa06-f6ba-4f63-b80c-f44e3c5f9b04" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my_travel_story/views.py" afterPath="$PROJECT_DIR$/my_travel_story/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/shared_link.html" afterPath="$PROJECT_DIR$/templates/shared_link.html" />
     </list>
     <ignored path="my_travel_story.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,14 +30,24 @@
     <favorites_list name="my_travel_story" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.43990386">
+    <splitter split-orientation="horizontal" split-proportion="0.9">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1273">
-                  <caret line="89" column="7" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
+                <state relative-caret-position="571">
+                  <caret line="84" column="117" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="117" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="shared_link.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/templates/shared_link.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="540">
+                  <caret line="20" column="117" selection-start-line="20" selection-start-column="117" selection-end-line="20" selection-end-column="117" />
                   <folding />
                 </state>
               </provider>
@@ -75,11 +85,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index_script.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index_script.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/my_travel_story/static/scripts/index_script.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="567">
-                  <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+                <state relative-caret-position="-847">
+                  <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -190,7 +200,6 @@
         <option value="$PROJECT_DIR$/my_travel_story/urls.py" />
         <option value="$PROJECT_DIR$/my_travel_story/static/scripts/shared_link_script.js" />
         <option value="$PROJECT_DIR$/my_travel_story/static/styles/shared_link_style.css" />
-        <option value="$PROJECT_DIR$/templates/shared_link.html" />
         <option value="$PROJECT_DIR$/templates/distance.html" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/runtime.txt" />
@@ -203,6 +212,7 @@
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/my_travel_story/static/scripts/index_script.js" />
         <option value="$PROJECT_DIR$/my_travel_story/views.py" />
+        <option value="$PROJECT_DIR$/templates/shared_link.html" />
       </list>
     </option>
   </component>
@@ -1196,14 +1206,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/shared_link.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1269,26 +1271,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1030">
-          <caret line="89" column="7" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/show_place.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_travel_story/static/scripts/index_script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1300,6 +1286,30 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_travel_story/static/scripts/index_script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-847">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="571">
+          <caret line="84" column="117" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/shared_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="20" column="117" selection-start-line="20" selection-start-column="117" selection-end-line="20" selection-end-column="117" />
+          <folding />
         </state>
       </provider>
     </entry>
