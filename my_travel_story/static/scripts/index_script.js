@@ -251,10 +251,12 @@ function giveChildFunc(){
 
     sideBar = document.getElementById("side-bar");
 
-    sideBarChildren = sideBar.getElementsByTagName("div");
+    sideBarChildren = sideBar.getElementsByClassName("side_bar");
 
+    alert(sideBarChildren.length);
     for(var ind=0;ind<sideBar.childElementCount;ind++){
         sideBarChildren[ind].addEventListener("click", sendPlaceData);
     }
+
 }
 
