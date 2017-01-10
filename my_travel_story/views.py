@@ -44,7 +44,6 @@ def index(request):
     if request.method == 'POST' and request.POST.get('name')!=None:
         address = request.POST.get("name")
         date = request.POST.get('date').split('-')
-        print address," ",date
         date = map(lambda x: datetime.strptime(x,'%b. %d, %Y')
                    ,date)
         date = map(lambda x: x.date().isoformat()
