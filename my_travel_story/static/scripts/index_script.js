@@ -233,6 +233,7 @@ function sendPlaceData(){
     childElems = this.getElementsByTagName("p");
     var name = childElems[0].firstChild.nodeValue;
     var date = childElems[1].firstChild.nodeValue;
+    alert(name + " " + date);
     var csrftoken = getCookie('csrftoken');
     var req = new XMLHttpRequest();
     req.open("POST","",true);
