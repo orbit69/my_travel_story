@@ -182,6 +182,7 @@ def measure_distance(request):
 def show_place(request):
     name = request.session['placeName']
     dates = request.session['date']
+    print dates
     arrival = dates.split("', '")[0][2:]
     depart = dates.split("', '")[1][0:-2]
     place = Place.objects.get(name=name, arrival=arrival, departure=depart)
