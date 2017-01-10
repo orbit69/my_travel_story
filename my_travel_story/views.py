@@ -55,7 +55,7 @@ def index(request):
         dateTo = request.POST.get("to")
         dateTo = datetime.strptime(dateTo, '%Y-%m-%d').date().isoformat()
 
-        data_string = user_login['login']+"%"+user_login['name']+"%"+user_login['last_name']+"%"+str(dateFrom)+"%"+str(dateTo)
+        data_string = user_login['login']+'%"'+user_login['name']+'%"'+user_login['last_name']+'%"'+str(dateFrom)+'%"'+str(dateTo)
 
         return HttpResponse(data_string)
 
@@ -229,10 +229,10 @@ def shared_link(request):
         s = data[2]
         f = data[3]
         f = f.encode('ascii','ignore')
-        f = datetime.date(datetime.strptime(f,'%y-%m-%d'))
+        f = datetime.date(datetime.strptime(f,'%Y-%m-%d'))
         t = data[4]
         t = t.encode('ascii','ignore')
-        t = datetime.date(datetime.strptime(t,'%y-%m-%d'))
+        t = datetime.date(datetime.strptime(t,'%Y-%m-%d'))
 
         person = User.objects.get(username=l,first_name=n,last_name=s)
         person = UserProfile.objects.get(user=person)
