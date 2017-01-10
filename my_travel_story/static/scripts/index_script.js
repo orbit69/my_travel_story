@@ -249,9 +249,9 @@ function sendPlaceData(){
 
 function giveChildFunc(){
 
-    sideBar = document.getElementById("side-bar");
+    sideBar = document.getElementsByClassName("side_bar_nav")[0];
 
-    sideBarChildren = sideBar.getElementsByClassName("side_bar");
+    sideBarChildren = sideBar.getElementsByTagName("a");
 
     alert(sideBarChildren.length);
     for(var ind=0;ind<sideBar.childElementCount;ind++){
