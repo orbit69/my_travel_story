@@ -220,17 +220,17 @@ def shared_link(request):
     if request.method=='GET':
         data = request.GET.get('data')
         print data
-        data = data.split('%')
+        data = data.split('%"')
         print data
-        data[2] = data[2].split(" ")
+
 
         l = data[0]
         n = data[1]
-        s = data[2][0]
-        f = data[2][1]
+        s = data[2]
+        f = data[3]
         f = f.encode('ascii','ignore')
         f = datetime.date(datetime.strptime(f,'%y-%m-%d'))
-        t = data[2][2]
+        t = data[4]
         t = t.encode('ascii','ignore')
         t = datetime.date(datetime.strptime(t,'%y-%m-%d'))
 
