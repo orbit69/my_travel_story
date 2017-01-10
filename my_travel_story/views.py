@@ -219,7 +219,9 @@ def shared_link(request):
 
     if request.method=='GET':
         data = request.GET.get('data')
+        print data
         data = data.split('%')
+        print data
         data[2] = data[2].split(" ")
 
         l = data[0]
